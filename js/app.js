@@ -108,8 +108,37 @@ class totalEgresos {
 //cargarCabecero();
 cargarCabecero1();
 
+const agregarDato = () => {
+  const forma = document.getElementById("forma");
+  console.log(forma)
+  const tipo = forma.tipo.value;
+  const descripcion = forma.descripcion.value;
+  const valor = parseFloat(forma.valor.value);
+  
+
+  if (descripcion !== "" && valor !== "") {
+    if (tipo === "ingreso") {
+      ingresos.push(new Ingreso(descripcion, valor));
+      cargarCabecero();
+      cargarIngresos();
+    } else if (tipo === "egreso") {
+      egresos.push(new Egreso(descripcion, valor));
+      cargarCabecero();
+      cargarEgresos();
+    }
+  }
+
+  forma.reset();
+  return false;
+};
 //Ingresos
 
+const eliminarIngreso = (id) => {
+  const indiceEliminar = ingresos.findIndex((ingreso) => ingreso.id === id);
+  ingresos.splice(indiceEliminar, 1);
+  cargarCabecero();
+  cargarIngresos();
+}
 const cargarIngresos = () => {
   let ingresosHTML = '';
 
@@ -126,13 +155,13 @@ const crearIngresoHTML = (ingreso) => {
     return valor.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2 });
    };
   const ingresoHTML = `
-    <div class="elemento limpiarEstilos">
-      <div class="elemento-descripcion">${ingreso.descripcion}</div>
-      <div class="derecha limpiarEstilos">
-        <div class="elemento-valor">${formatoMoneda(ingreso.valor)}</div>
-        <div class="elemento-delete">
-          <button class="elemento-delete--btn">
-            <i class="far fa-trash-alt" onclick="eliminarIngreso(${ingreso.id})"></i>
+    <div class="limpiarEstilos; elemento">
+      <div class="elemento_descripcion">${ingreso.descripcion}</div>
+      <div class="limpiarEstilos; derecha ">
+        <div class="elemento_valor">${formatoMoneda(ingreso.valor)}</div>
+        <div class="elemento_eliminar">
+          <button class="elemento_eliminar--btn" onclick="eliminarIngreso(${ingreso.id})">
+          <ion-icon name="close-circle-outline" />
           </button>
         </div>
       </div>
@@ -158,15 +187,23 @@ const cargarEgresos = () => {
   listaEgresos.innerHTML = egresosHTML;
 };
 
+
+const eliminarEgreso = (id) => {
+  const indiceEliminar = egresos.findIndex((egreso) => egreso.id === id);
+  egresos.splice(indiceEliminar, 1);
+  cargarCabecero();
+  cargarEgresos();
+}
+
 const crearEgresoHTML = (egreso) => {
   const egresoHTML = `
-    <div class="elemento limpiarEstilos">
-      <div class="elemento-descripcion">${egreso.descripcion}</div>
-      <div class="derecha limpiarEstilos">
-        <div class="elemento-valor">${formatoMoneda(egreso.valor)}</div>
-        <div class="elemento-delete">
-          <button class="elemento-delete--btn">
-            <i class="far fa-trash-alt" onclick="eliminarEgreso(${egreso.id})"></i>
+    <div class="limpiarEstilos; elemento ">
+      <div class="elemento_descripcion">${egreso.descripcion}</div>
+      <div class="limpiarEstilos; derecha ">
+        <div class="elemento_valor">${formatoMoneda(egreso.valor)}</div>
+        <div class="elemento_eliminar">
+          <button class="elemento_eliminar--btn" onclick="eliminarEgreso(${egreso.id})">
+          <ion-icon name="close-circle-outline" />
           </button>
         </div>
       </div>
@@ -176,36 +213,9 @@ const crearEgresoHTML = (egreso) => {
   return egresoHTML;
 };
 
-const eliminarEgreso = (id) => {
-  const indiceEliminar = egresos.findIndex((egreso) => egreso.id === id);
-  egresos.splice(indiceEliminar, 1);
-  cargarCabecero();
-  cargarEgresos();
-}
 
-const agregarDato = () => {
-  const forma = document.getElementById("forma");
-  console.log(forma)
-  const tipo = forma.tipo.value;
-  const descripcion = forma.descripcion.value;
-  const valor = forma.valor.value;
-  
 
-  if (descripcion !== "" && valor !== "") {
-    if (tipo === "ingreso") {
-      ingresos.push(new Ingreso(descripcion, valor));
-      cargarCabecero();
-      cargarIngresos();
-    } else if (tipo === "egreso") {
-      egresos.push(new Egreso(descripcion, valor));
-      cargarCabecero();
-      cargarEgresos();
-    }
-  }
 
-  forma.reset();
-  return false;
-};
 
 
 function cargarApp() {
