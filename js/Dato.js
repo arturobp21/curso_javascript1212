@@ -21,5 +21,5 @@ class Dato {
   }
 }
 
-export default Dato;
+//export default Dato;
   

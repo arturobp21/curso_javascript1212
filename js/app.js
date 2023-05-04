@@ -1,6 +1,6 @@
 
-import { Ingreso } from './Ingreso.js';
-import { Egreso } from './Egreso.js';
+//import { Ingreso } from './Ingreso.js';
+//import { Egreso } from './Egreso.js';
 
 // arreglo de ingresos
 const ingresos = [
@@ -185,9 +185,11 @@ const eliminarEgreso = (id) => {
 
 const agregarDato = () => {
   const forma = document.getElementById("forma");
+  console.log(forma)
   const tipo = forma.tipo.value;
   const descripcion = forma.descripcion.value;
   const valor = forma.valor.value;
+  
 
   if (descripcion !== "" && valor !== "") {
     if (tipo === "ingreso") {
@@ -207,10 +209,11 @@ const agregarDato = () => {
 
 
 function cargarApp() {
-  cargarCabecero();
   cargarIngresos();
   cargarEgresos();
+  cargarCabecero();
+  
   
 }
 
-cargarApp()
+

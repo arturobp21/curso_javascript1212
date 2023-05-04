@@ -1,6 +1,6 @@
 
-import Dato from './Dato.js';
-export class Ingreso extends Dato {
+//import Dato from './Dato.js';
+class Ingreso extends Dato {
   static contadorIngresos = 0;
 
   constructor(descripcion, valor) {
@@ -13,4 +13,4 @@ export class Ingreso extends Dato {
   }
 }
 
-export default Ingreso;
+//export default Ingreso;
